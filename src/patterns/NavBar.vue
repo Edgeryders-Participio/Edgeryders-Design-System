@@ -4,17 +4,34 @@
     <h2>{{ title }}</h2>
 
     <ul class="menu">
-      <li>
+      <li v-for="(item, index) in navItems">
         <a
-          v-for="(item, index) in navItems"
+          v-if="item.href"
           :key="index"
           :href="item.href"
           :class="{ active: localActive === item.component }"
           v-html="item.name"
           v-smooth-scroll="{ duration: 1000, offset: -100 }"
         />
+        <div class="dropdown" v-if="item.dropdown">
+          <button
+            class="dropbtn"
+            @click="
+              isactive = !isactive
+              activedropdown = item.dropdown
+            "
+          >
+            {{ item.name }}
+          </button>
+          <div class="dropdown-content" :class="{ active: isactive }">
+            <a v-for="link in item.dropdown" :href="link[1]" target="_blank">{{ link[0] }}</a>
+          </div>
+        </div>
       </li>
     </ul>
+    <div class="modal" :class="{ active: isactive }">
+      <a v-for="link in activedropdown" :href="link[1]" target="_blank">{{ link[0] }}</a>
+    </div>
   </component>
 </template>
 
@@ -28,6 +45,12 @@ export default {
   release: "1.0.0",
   model: {
     prop: "active",
+  },
+  data() {
+    return {
+      isactive: false,
+      activedropdown: "",
+    }
   },
   props: {
     /**
@@ -75,6 +98,9 @@ export default {
 $color-nav-link: $color-bleu-de-france;
 $color-nav-link-active: $color-bleu-de-france;
 
+.modal {
+  display: none;
+}
 .nav {
   @include reset;
   font-family: $font-text;
@@ -99,26 +125,87 @@ $color-nav-link-active: $color-bleu-de-france;
   ul.menu {
     padding: 0 !important;
     height: 100%;
-    display: inline-flex;
+    display: flex;
+
+    align-items: center;
     li {
       list-style-type: none;
       margin: 0 !important;
+      background: url("data:image/svg+xml,%3Csvg width='130' height='318' version='1' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='white' fill-rule='evenodd'%3E%3Cpath d='M0 284l35-19 19 34-35 19zM16 231l34-19 19 34-34 19zM31 178l34-19 19 34-34 19zM46 125l34-19 19 34-34 19zM61 72l34-19 19 34-34 19zM76 19l35-19 19 34-35 19z'/%3E%3C/g%3E%3C/svg%3E")
+        no-repeat 100% 50%;
+      background-size: 8px;
+      padding: 10px 20px 10px 10px;
+      &:last-child {
+        background: none;
+        padding: 0 10px;
+      }
       a {
         color: white;
         font-weight: bold;
-        padding: 0 30px 0 10px;
+        margin: 0;
         text-decoration: none;
         position: relative;
-        background: url("data:image/svg+xml,%3Csvg width='130' height='318' version='1' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='white' fill-rule='evenodd'%3E%3Cpath d='M0 284l35-19 19 34-35 19zM16 231l34-19 19 34-34 19zM31 178l34-19 19 34-34 19zM46 125l34-19 19 34-34 19zM61 72l34-19 19 34-34 19zM76 19l35-19 19 34-35 19z'/%3E%3C/g%3E%3C/svg%3E")
-          no-repeat 93% 55%;
-        background-size: 7px;
-        &:last-child {
-          background: none;
-          padding: 0 10px;
-        }
       }
     }
   }
+}
+
+.dropdown {
+  float: left;
+  position: relative;
+  z-index: 999999;
+}
+
+.dropdown .dropbtn {
+  position: relative;
+  z-index: 999999;
+  font-size: 1em;
+  font-weight: bold;
+  border: none;
+  outline: none;
+  color: white;
+  padding: 8px 3px;
+  border-radius: 10px 10px 0 0;
+  background-color: inherit;
+  font-family: inherit;
+  margin: 0;
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #0000ca;
+  min-width: 260px;
+  box-shadow: 0px 3px 0px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  float: none;
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  border-bottom: 1px solid blue;
+  text-align: left;
+  &:last-child {
+    padding: 12px 16px !important;
+  }
+}
+
+.dropdown-content a:hover {
+  background: blue;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+.dropdown-content.active {
+  display: block !important;
 }
 
 .fixed {
@@ -129,8 +216,47 @@ $color-nav-link-active: $color-bleu-de-france;
   h2 {
     display: none;
   }
+
+  .dropdown-content.active,
+  .dropdown-content {
+    display: none !important;
+  }
+
+  @keyframes modal {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+
+  .modal {
+    width: 50%;
+    background: white;
+    position: fixed;
+    top: 90px;
+    right: 5%;
+    padding: 5%;
+    display: none;
+    a {
+      width: 100%;
+      display: block;
+      padding: 10px;
+      text-decoration: none;
+    }
+  }
+  .modal.active {
+    display: block;
+    opacity: 1;
+    animation: modal 0.5s ease !important;
+  }
+
+  .dropdown .dropbtn {
+    font-size: 1.3em;
+  }
   .nav {
-    padding: 10px 30px;
+    padding: 0px 30px;
   }
   .logo {
     margin: 0 10px 0 0;

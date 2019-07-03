@@ -1,30 +1,19 @@
 <template>
   <component :is="type" class="index">
-    <NavBar
-      active="Index"
-      title="Internet of Humans"
-      :navItems="[
-        { name: 'Participate', href: '#participate' },
-        { name: 'Events', href: '#events' },
-        { name: 'Organisers', href: '#organisers' },
-        { name: 'Topics', href: '#topics' },
-        { name: 'About Edgeryders', href: '#edgeryders' },
-      ]"
-    />
+    <NavBar active="Index" title="Internet of Humans" :navItems="menu" />
     <Hero />
 
     <Wrapper class="standard" id="participate">
       <SectionTitle glyph="participate">How to Participate</SectionTitle>
       <Paragraph>
-        The Internet of Humans Project is a quest to understand how we the people, who contribute
-        towards building the evolution of the Internet and our digital technologies, actively build
-        a better future against a backdrop of massive social, economic, ecological and political
-        challenges.
+        Internet of Humans is a quest to understand how we the people, who contribute towards
+        building the evolution of the Internet and our digital technologies, actively build a better
+        future against a backdrop of massive social, economic, ecological and political challenges.
       </Paragraph>
       <ul>
         <li>
           <a href="http://communities.edgeryders.eu" target="_blank">Sign up here</a> to join our
-          community at Edgeryders.
+          learning and collaboration platform.
         </li>
         <li>
           Join a
@@ -160,7 +149,7 @@
               :href="'https://edgeryders.eu/u/' + organiser.username + '/summary'"
               fill="blue"
               variation="edgeryders"
-              >Connect with on Edgeryders</Button
+              >Connect with me</Button
             >
           </div>
         </slide>
@@ -201,14 +190,15 @@
     </Wrapper>
 
     <Wrapper class="footer" id="edgeryders">
-      <SectionTitle glyph="edgeryders">About Edgeryders</SectionTitle>
+      <SectionTitle glyph="edgeryders">About Internet of Humans</SectionTitle>
       <Paragraph
-        >If you are new to Edgeryders: we are a global network of 5000 people who are interested in
-        participation, health, technology, social progress, innovation, and many more topics. We
-        come from all walks of life to access interesting information, make new connections and
-        collaborate. By sharing experiences with one another we turn our collective knowledge into
-        useful advice to make better decisions for ourselves and our families in the near
-        future.</Paragraph
+        >Internet of Humans is powered by Edgeryders technology for collective sensemaking and
+        collaboration. If you are new to Edgeryders: we are a gloabl network of 5000 people who are
+        interested in participation, health, technology, social progress, innovation, and many more
+        topics. We come from all walks of life to access interesting information, make new
+        connections and collaborate. By sharing experiences with one another we turn our collective
+        knowledge into useful advice to make better decisions for ourselves and our families in the
+        near future.</Paragraph
       >
 
       <div class="links">
@@ -316,6 +306,28 @@ export default {
       ],
       jsonObj: null,
       users: null,
+      menu: [
+        { name: "Participate", href: "#participate" },
+        { name: "Events", href: "#events" },
+        { name: "Organisers", href: "#organisers" },
+        { name: "Topics", href: "#topics" },
+        {
+          name: "Who is it for?",
+          dropdown: [
+            ["Policymakers", "https://edgeryders.eu/search?q=category%3A315%20tags%3Aioh-policy"],
+            [
+              "Technologists & Designers",
+              "https://edgeryders.eu/search?q=category%3A315%20tags%3Aioh-collaboration",
+            ],
+            [
+              "Researchers & Domain Experts",
+              "https://edgeryders.eu/search?q=category%3A315%20tags%3Aioh-research",
+            ],
+            ["Innovators", "https://edgeryders.eu/search?q=category%3A315%20tags%3Aioh-policy"],
+          ],
+        },
+        { name: "About Edgeryders", href: "#edgeryders" },
+      ],
     }
   },
   filters: {
@@ -817,8 +829,12 @@ div /deep/ .VueCarousel-dot-container .VueCarousel-dot--active {
     .post {
       width: 100%;
       margin: 0;
+      a.title {
+        line-height: 6.7vw;
+        font-size: 5vw;
+      }
       .excerpt {
-        font-size: 3vw;
+        font-size: 3.7vw;
       }
     }
   }
@@ -831,6 +847,7 @@ div /deep/ .VueCarousel-dot-container .VueCarousel-dot--active {
       padding: 0;
       margin: 0;
       li {
+        font-size: 1.15em;
       }
     }
   }
@@ -920,6 +937,7 @@ div /deep/ .VueCarousel-dot-container .VueCarousel-dot--active {
         }
         li {
           padding: 14px 10px;
+          font-size: 1.15em;
         }
       }
       .field {
@@ -941,7 +959,7 @@ div /deep/ .VueCarousel-dot-container .VueCarousel-dot--active {
     }
   }
   #edgeryders {
-    padding-bottom: 0px !important;
+    padding-bottom: 40px !important;
     width: 100% !important;
     .section_title {
       margin-bottom: 20px;
@@ -963,15 +981,16 @@ div /deep/ .VueCarousel-dot-container .VueCarousel-dot--active {
     }
     a {
       margin: 0 0px 20px 0;
-      font-size: 15px;
       display: inline-block;
       text-decoration: none !important;
       /deep/ div {
         text-decoration: none !important;
       }
       &.button {
-        padding-right: 45px;
+        padding-right: 5px !important;
         margin: 0 10px 20px 0;
+        background-size: 20px !important;
+        background-position: 97% center;
       }
     }
   }

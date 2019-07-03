@@ -67,7 +67,8 @@ export default {
       background-size: 47%;
     }
     &#edgeryders {
-      background: url("data:image/svg+xml,%3Csvg style='fill: white' viewBox='0 0 500 500' version='1' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 250a250 250 0 1 1 500 0 250 250 0 0 1-500 0zm250 183V250H67a183 183 0 1 1 183 183z' fill='' fill-rule='evenodd'%3E%3C/path%3E%3C/svg%3E");
+      background: url("data:image/svg+xml,%3Csvg style='fill: white' viewBox='0 0 500 500' version='1' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 250a250 250 0 1 1 500 0 250 250 0 0 1-500 0zm250 183V250H67a183 183 0 1 1 183 183z' fill='' fill-rule='evenodd'%3E%3C/path%3E%3C/svg%3E")
+        no-repeat;
     }
   }
   h1,
